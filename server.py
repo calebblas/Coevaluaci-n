@@ -8,6 +8,18 @@ CORS(app)
 
 EXCEL_FILE = 'alumnos.xlsx'
 
+# Crear archivo Excel si no existe
+def crear_archivo_excel():
+    if not os.path.exists(EXCEL_FILE):
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        # Crear encabezado
+        ws.append(["Nombre", "Evaluador"])
+        wb.save(EXCEL_FILE)
+
+# Llamada a la función para crear el archivo si no existe
+crear_archivo_excel()
+
 @app.route('/')
 def index():
     return send_from_directory('.', 'index.html')
